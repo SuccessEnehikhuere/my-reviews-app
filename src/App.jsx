@@ -6,41 +6,70 @@ function App() {
   const [index, setIndex] = useState(0)
   const { name, job, image, text } = people[index]
 
-  const checkNumber = (number) => {
-    if (number > people.length - 1) {
-      return 0
-    }
-    if (number < 0) {
-      return people.length - 1
-    }
-    return number
-  }
+  // const checkNumber = (number) => {
+  //   if (number > people.length - 1) {
+  //     return 0
+  //   }
+  //   if (number < 0) {
+  //     return people.length - 1
+  //   }
+  //   return number
+  // }
+
+  // const nextPerson = () => {
+  //   setIndex((currentIndex) => {
+  //     const newIndex = currentIndex + 1
+  //     return checkNumber(newIndex)
+  //   })
+  // }
+
+  // const prevPerson = () => {
+  //   setIndex((currentIndex) => {
+  //     const newIndex = currentIndex - 1
+  //     return checkNumber(newIndex)
+  //   })
+  // }
+
+  // const randomPerson = () => {
+  //     let randomNumber = Math.floor(Math.random() * people.length)
+
+  //     if(randomNumber === index) {
+  //       randomNumber = index + 1;
+  //     }
+  //     setIndex(checkNumber(randomNumber));
+
+  // }
+
+  //a cleaner way of writing the above code using  modulus
+  //1 % 4 = 1 -- 1 cant divide 4, so it returns the same number
+  //2 % 4 = 2
+  //3 % 4 = 3
+  //4 % 4 = 4
+  //10 % 4 = 2 -- we can get 4 out of 10 twice. the remainder or modulus is 2.
 
   const nextPerson = () => {
     setIndex((currentIndex) => {
-      const newIndex = currentIndex + 1
-      return checkNumber(newIndex)
+      const newIndex = (currentIndex + 1) % people.length
+      return newIndex
     })
   }
 
   const prevPerson = () => {
     setIndex((currentIndex) => {
-      const newIndex = currentIndex - 1
-      return checkNumber(newIndex)
+      const newIndex = (currentIndex - 1 + people.length) % people.length
+      return newIndex
     })
   }
 
   const randomPerson = () => {
-      let randomNumber = Math.floor(Math.random() * people.length)
-     
-      if(randomNumber === index) {
-        randomNumber = index + 1;
-      }
-      setIndex(checkNumber(randomNumber));
-   
-  }
+    let randomNumber = Math.floor(Math.random() * people.length)
 
-  //a cleaner way of doing it usig modulus
+    if (randomNumber === index) {
+      randomNumber = index + 1
+    }
+    const newIndex = randomNumber % people.length
+    setIndex(newIndex)
+  }
 
   return (
     <main>
